@@ -19,7 +19,7 @@ To use this MCP server with Cursor AI, go to `Cursor Settings`, `MCP` and a `New
 "da-live-admin": {
  "command": "npx",
   "args": [
-    "https://github.com/kptdobe/mcp-da-live-admin"
+    "https://github.com/meejain/mcp-da-live-admin"
   ],
   "env": {
     "DA_ADMIN_API_TOKEN": "your_api_token_here"
