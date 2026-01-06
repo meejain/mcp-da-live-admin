@@ -4,7 +4,7 @@ import { daAdminRequest, daAdminResponseFormat, formatURL } from '../common/util
 const GetSourceSchema = z.object({
   org: z.string().describe('The organization'),
   repo: z.string().describe('Name of the repository'),
-  path: z.string().describe('Path to the source content'),
+  path: z.string().describe('Path to the source content (with or without extension)'),
   ext: z.string().describe('The source content file extension: html or json'),
 });
 

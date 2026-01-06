@@ -37,7 +37,8 @@ export async function daAdminRequest(
   const responseBody = await parseResponseBody(response);
 
   if (!response.ok) {
-    throw new Error(response.status, responseBody);
+    const errorMessage = typeof responseBody === 'string' ? responseBody : JSON.stringify(responseBody);
+    throw new Error(`${response.status}: ${errorMessage}`);
   }
 
   return responseBody;
@@ -50,5 +51,16 @@ export function daAdminResponseFormat(data) {
 }
 
 export function formatURL(api, org, repo, path, ext) {
-  return `${ADMIN_API_URL}/${api}/${org}/${repo}/${path.startsWith("/") ? path.slice(1) : path}${ext ? `.${ext}` : ""  }`;
+  // Remove leading slash from path if present
+  let cleanPath = path.startsWith("/") ? path.slice(1) : path;
+  
+  // If extension is provided and path doesn't already end with it, add the extension
+  if (ext) {
+    const expectedExt = `.${ext}`;
+    if (!cleanPath.endsWith(expectedExt)) {
+      cleanPath = `${cleanPath}${expectedExt}`;
+    }
+  }
+  
+  return `${ADMIN_API_URL}/${api}/${org}/${repo}/${cleanPath}`;
 }
